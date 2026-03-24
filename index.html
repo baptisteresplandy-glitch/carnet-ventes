@@ -7,113 +7,63 @@
 <title>Carnet de Ventes</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap');
-
-:root {
-–vert: #2d5a1b;
-–vert-clair: #4a7c2f;
-–creme: #f7f2e8;
-–creme-fonce: #ede5d0;
-–texte: #2a2218;
-–gris: #6b6257;
-–or: #c8963e;
-–terre: #8b5e3c;
-}
-
-- { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: ‘Source Sans 3’, sans-serif; background: var(–creme); color: var(–texte); min-height: 100vh; }
-
-header {
-background: var(–vert); color: white;
-padding: 18px 24px; display: flex; align-items: center; gap: 14px;
-box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-}
-header .logo { font-size: 28px; }
-header h1 { font-family: ‘Lora’, serif; font-size: 22px; font-weight: 700; }
-header p { font-size: 13px; opacity: 0.8; margin-top: 2px; }
-
-.container { max-width: 600px; margin: 0 auto; padding: 24px 16px; }
-
-.card {
-background: white; border-radius: 14px; padding: 22px;
-margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-}
-.card h2 { font-family: ‘Lora’, serif; font-size: 17px; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
-.card-setup h2 { color: var(–terre); border-left: 4px solid var(–or); padding-left: 10px; }
-.card-saisie h2 { color: var(–vert); }
-
-.field { margin-bottom: 14px; }
-.field label { display: block; font-size: 13px; font-weight: 600; color: var(–gris); margin-bottom: 5px; }
-
-input[type=“text”], input[type=“number”] {
-width: 100%; padding: 11px 14px; border: 1.5px solid #ddd; border-radius: 9px;
-font-size: 15px; font-family: ‘Source Sans 3’, sans-serif;
-background: var(–creme); color: var(–texte); transition: border 0.2s;
-}
-input:focus { outline: none; border-color: var(–vert); background: white; }
-
-.toggle-group { display: flex; border: 1.5px solid #ddd; border-radius: 9px; overflow: hidden; }
-.toggle-group input[type=“radio”] { display: none; }
-.toggle-group label {
-flex: 1; text-align: center; padding: 11px; font-size: 15px; font-weight: 600;
-cursor: pointer; background: var(–creme); color: var(–gris); transition: all 0.2s;
-}
-#mode-esp:checked + label { background: #2e7d32; color: white; }
-#mode-cb:checked  + label { background: #1565c0; color: white; }
-
-.btn {
-width: 100%; padding: 13px; border: none; border-radius: 9px;
-font-size: 16px; font-weight: 700; cursor: pointer;
-font-family: ‘Source Sans 3’, sans-serif; transition: all 0.15s;
-}
-.btn-vert { background: var(–vert); color: white; }
-.btn-vert:hover { background: var(–vert-clair); transform: translateY(-1px); }
-.btn-sm {
-width: auto; padding: 8px 18px; font-size: 13px; font-weight: 600;
-border: none; border-radius: 7px; cursor: pointer; font-family: ‘Source Sans 3’, sans-serif;
-}
-
-.confirm-box {
-display: none; background: #e8f5e9; border: 1.5px solid #a5d6a7;
-border-radius: 10px; padding: 14px 16px; margin-top: 14px;
-align-items: center; gap: 14px; flex-wrap: wrap;
-}
-.confirm-box.visible { display: flex; }
-.confirm-montant { font-family: ‘Lora’, serif; font-size: 24px; font-weight: 700; color: var(–vert); }
-.confirm-meta { font-size: 13px; color: var(–gris); margin-top: 3px; }
-.confirm-badge { font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
-.badge-esp { background: #c8e6c9; color: #1b5e20; }
-.badge-cb  { background: #bbdefb; color: #0d47a1; }
-
-.status { font-size: 13px; padding: 9px 13px; border-radius: 8px; margin-top: 10px; display: none; line-height: 1.5; }
-.status.visible { display: block; }
-.status-ok      { background: #e8f5e9; color: #2e7d32; }
-.status-err     { background: #ffebee; color: #c62828; }
-.status-loading { background: #fff8e1; color: #e65100; }
-
-.config-ok { display: none; background: #e8f5e9; border: 1.5px solid #a5d6a7; border-radius: 9px; padding: 10px 14px; font-size: 13px; color: #2e7d32; font-weight: 600; margin-bottom: 14px; }
-.config-ok.visible { display: block; }
-
-table { width: 100%; border-collapse: collapse; font-size: 14px; }
-thead th { background: var(–vert); color: white; padding: 10px 12px; text-align: left; font-size: 13px; font-weight: 600; }
-thead th:first-child { border-radius: 8px 0 0 0; }
-thead th:last-child  { border-radius: 0 8px 0 0; }
-tbody tr:nth-child(even) { background: var(–creme); }
-tbody tr:hover { background: #e8f0e4; }
-tbody td { padding: 9px 12px; border-bottom: 1px solid #eee; }
-
-.totaux { display: flex; gap: 12px; margin-top: 14px; flex-wrap: wrap; }
-.total-box { flex: 1; min-width: 120px; background: var(–creme-fonce); border-radius: 10px; padding: 12px 16px; text-align: center; }
-.total-box .lbl { font-size: 12px; color: var(–gris); text-transform: uppercase; font-weight: 600; }
-.total-box .val { font-family: ‘Lora’, serif; font-size: 22px; font-weight: 700; margin-top: 3px; }
-.total-box.esp .val { color: #2e7d32; }
-.total-box.cb  .val { color: #1565c0; }
-.total-box.tot .val { color: var(–vert); }
-.empty { text-align: center; color: var(–gris); padding: 28px; font-size: 14px; }
+  :root { --vert:#2d5a1b; --vert-clair:#4a7c2f; --creme:#f7f2e8; --creme-fonce:#ede5d0; --texte:#2a2218; --gris:#6b6257; --or:#c8963e; --terre:#8b5e3c; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Source Sans 3',sans-serif; background:var(--creme); color:var(--texte); min-height:100vh; }
+  header { background:var(--vert); color:white; padding:18px 24px; display:flex; align-items:center; gap:14px; box-shadow:0 2px 8px rgba(0,0,0,0.2); }
+  header .logo { font-size:28px; }
+  header h1 { font-family:'Lora',serif; font-size:22px; font-weight:700; }
+  header p { font-size:13px; opacity:0.8; margin-top:2px; }
+  .container { max-width:600px; margin:0 auto; padding:24px 16px; }
+  .card { background:white; border-radius:14px; padding:22px; margin-bottom:18px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+  .card h2 { font-family:'Lora',serif; font-size:17px; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+  .card-setup h2 { color:var(--terre); border-left:4px solid var(--or); padding-left:10px; }
+  .card-saisie h2 { color:var(--vert); }
+  .field { margin-bottom:14px; }
+  .field label { display:block; font-size:13px; font-weight:600; color:var(--gris); margin-bottom:5px; }
+  input[type="text"], input[type="number"] { width:100%; padding:11px 14px; border:1.5px solid #ddd; border-radius:9px; font-size:15px; font-family:'Source Sans 3',sans-serif; background:var(--creme); color:var(--texte); transition:border 0.2s; }
+  input:focus { outline:none; border-color:var(--vert); background:white; }
+  .toggle-group { display:flex; border:1.5px solid #ddd; border-radius:9px; overflow:hidden; }
+  .toggle-group input[type="radio"] { display:none; }
+  .toggle-group label { flex:1; text-align:center; padding:11px; font-size:15px; font-weight:600; cursor:pointer; background:var(--creme); color:var(--gris); transition:all 0.2s; }
+  #mode-esp:checked + label { background:#2e7d32; color:white; }
+  #mode-cb:checked  + label { background:#1565c0; color:white; }
+  .btn { width:100%; padding:13px; border:none; border-radius:9px; font-size:16px; font-weight:700; cursor:pointer; font-family:'Source Sans 3',sans-serif; transition:all 0.15s; }
+  .btn-vert { background:var(--vert); color:white; }
+  .btn-vert:hover { background:var(--vert-clair); transform:translateY(-1px); }
+  .btn-sm { width:auto; padding:8px 18px; font-size:13px; font-weight:600; border:none; border-radius:7px; cursor:pointer; font-family:'Source Sans 3',sans-serif; }
+  .confirm-box { display:none; background:#e8f5e9; border:1.5px solid #a5d6a7; border-radius:10px; padding:14px 16px; margin-top:14px; align-items:center; gap:14px; flex-wrap:wrap; }
+  .confirm-box.visible { display:flex; }
+  .confirm-montant { font-family:'Lora',serif; font-size:24px; font-weight:700; color:var(--vert); }
+  .confirm-meta { font-size:13px; color:var(--gris); margin-top:3px; }
+  .confirm-badge { font-size:12px; font-weight:700; padding:3px 10px; border-radius:12px; text-transform:uppercase; letter-spacing:0.5px; }
+  .badge-esp { background:#c8e6c9; color:#1b5e20; }
+  .badge-cb  { background:#bbdefb; color:#0d47a1; }
+  .status { font-size:13px; padding:9px 13px; border-radius:8px; margin-top:10px; display:none; line-height:1.5; }
+  .status.visible { display:block; }
+  .status-ok      { background:#e8f5e9; color:#2e7d32; }
+  .status-err     { background:#ffebee; color:#c62828; }
+  .status-loading { background:#fff8e1; color:#e65100; }
+  .config-ok { display:none; background:#e8f5e9; border:1.5px solid #a5d6a7; border-radius:9px; padding:10px 14px; font-size:13px; color:#2e7d32; font-weight:600; margin-bottom:14px; }
+  .config-ok.visible { display:block; }
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  thead th { background:var(--vert); color:white; padding:10px 12px; text-align:left; font-size:13px; font-weight:600; }
+  thead th:first-child { border-radius:8px 0 0 0; }
+  thead th:last-child  { border-radius:0 8px 0 0; }
+  tbody tr:nth-child(even) { background:var(--creme); }
+  tbody tr:hover { background:#e8f0e4; }
+  tbody td { padding:9px 12px; border-bottom:1px solid #eee; }
+  .totaux { display:flex; gap:12px; margin-top:14px; flex-wrap:wrap; }
+  .total-box { flex:1; min-width:120px; background:var(--creme-fonce); border-radius:10px; padding:12px 16px; text-align:center; }
+  .total-box .lbl { font-size:12px; color:var(--gris); text-transform:uppercase; font-weight:600; }
+  .total-box .val { font-family:'Lora',serif; font-size:22px; font-weight:700; margin-top:3px; }
+  .total-box.esp .val { color:#2e7d32; }
+  .total-box.cb  .val  { color:#1565c0; }
+  .total-box.tot .val  { color:var(--vert); }
+  .empty { text-align:center; color:var(--gris); padding:28px; font-size:14px; }
 </style>
-
 </head>
 <body>
-
 <header>
   <span class="logo">🌾</span>
   <div>
@@ -123,7 +73,6 @@ tbody td { padding: 9px 12px; border-bottom: 1px solid #eee; }
 </header>
 
 <div class="container">
-
   <div class="card card-setup">
     <h2>⚙️ Connexion Google Sheets</h2>
     <div class="config-ok" id="configOk">✅ Google Sheets connecté et prêt !</div>
@@ -137,25 +86,22 @@ tbody td { padding: 9px 12px; border-bottom: 1px solid #eee; }
 
   <div class="card card-saisie">
     <h2>📝 Nouvelle vente</h2>
+    <div class="field">
+      <label>Montant (€)</label>
+      <input type="number" id="montant" placeholder="0.00" step="0.01" min="0" inputmode="decimal" />
+    </div>
+    <div class="field">
+      <label>Mode de paiement</label>
+      <div class="toggle-group">
+        <input type="radio" name="mode" id="mode-esp" value="Espèces" checked />
+        <label for="mode-esp">💵 Espèces</label>
+        <input type="radio" name="mode" id="mode-cb" value="CB" />
+        <label for="mode-cb">💳 Carte bleue</label>
+      </div>
+    </div>
+    <button class="btn btn-vert" onclick="preparerVente()">✅ Enregistrer</button>
 
 ```
-<div class="field">
-  <label>Montant (€)</label>
-  <input type="number" id="montant" placeholder="0.00" step="0.01" min="0" inputmode="decimal" />
-</div>
-
-<div class="field">
-  <label>Mode de paiement</label>
-  <div class="toggle-group">
-    <input type="radio" name="mode" id="mode-esp" value="Espèces" checked />
-    <label for="mode-esp">💵 Espèces</label>
-    <input type="radio" name="mode" id="mode-cb" value="CB" />
-    <label for="mode-cb">💳 Carte bleue</label>
-  </div>
-</div>
-
-<button class="btn btn-vert" onclick="preparerVente()">✅ Enregistrer</button>
-
 <div class="confirm-box" id="confirmBox">
   <div style="flex:1">
     <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
@@ -169,7 +115,6 @@ tbody td { padding: 9px 12px; border-bottom: 1px solid #eee; }
     <button class="btn-sm" style="background:#eee;color:#666" onclick="annuler()">Annuler</button>
   </div>
 </div>
-
 <div id="venteStatus" class="status"></div>
 ```
 
@@ -177,11 +122,8 @@ tbody td { padding: 9px 12px; border-bottom: 1px solid #eee; }
 
   <div class="card">
     <h2 style="font-family:'Lora',serif;font-size:17px;color:var(--texte)">📋 Historique de la session</h2>
-    <div id="historiqueContent">
-      <p class="empty">Aucune vente pour l'instant.</p>
-    </div>
+    <div id="historiqueContent"><p class="empty">Aucune vente pour l'instant.</p></div>
   </div>
-
 </div>
 
 <script>
@@ -190,34 +132,25 @@ let venteEnAttente = null;
 
 function saveConfig() {
   const url = document.getElementById('scriptUrl').value.trim();
-  if (!url || !url.includes('script.google.com')) {
-    showStatus('configStatus', '⚠️ L\'URL doit venir de script.google.com', 'err'); return;
-  }
+  if (!url || !url.includes('script.google.com')) { showStatus('configStatus','⚠️ URL invalide','err'); return; }
   localStorage.setItem('scriptUrl', url);
-  showStatus('configStatus', '✅ URL sauvegardée !', 'ok');
+  showStatus('configStatus','✅ URL sauvegardée !','ok');
   checkConfig();
 }
-
 function loadConfig() {
-  const url = localStorage.getItem('scriptUrl') || '';
-  document.getElementById('scriptUrl').value = url;
+  document.getElementById('scriptUrl').value = localStorage.getItem('scriptUrl') || '';
   checkConfig();
 }
-
 function checkConfig() {
   document.getElementById('configOk').classList.toggle('visible', !!localStorage.getItem('scriptUrl'));
 }
-
 function preparerVente() {
   const raw = document.getElementById('montant').value;
   const montant = parseFloat(raw);
-  if (!raw || isNaN(montant) || montant <= 0) {
-    showStatus('venteStatus', '⚠️ Entre un montant valide.', 'err'); return;
-  }
+  if (!raw || isNaN(montant) || montant <= 0) { showStatus('venteStatus','⚠️ Montant invalide','err'); return; }
   const mode = document.querySelector('input[name="mode"]:checked').value;
   const date = new Date().toLocaleDateString('fr-FR');
   venteEnAttente = { date, montant, mode };
-
   document.getElementById('confirmMontant').textContent = montant.toFixed(2) + ' €';
   const badge = document.getElementById('confirmBadge');
   badge.className = 'confirm-badge ' + (mode === 'CB' ? 'badge-cb' : 'badge-esp');
@@ -226,77 +159,71 @@ function preparerVente() {
   document.getElementById('confirmBox').classList.add('visible');
   hideStatus('venteStatus');
 }
-
 function annuler() {
   venteEnAttente = null;
   document.getElementById('confirmBox').classList.remove('visible');
 }
-
-async function envoyerVente() {
+function envoyerVente() {
   const scriptUrl = localStorage.getItem('scriptUrl');
   const v = venteEnAttente;
   document.getElementById('confirmBox').classList.remove('visible');
+  if (!scriptUrl) { showStatus('venteStatus','⚠️ Configure l\'URL d\'abord','err'); return; }
 
-  if (!scriptUrl) {
-    showStatus('venteStatus', '⚠️ Configure l\'URL Apps Script d\'abord.', 'err');
-    return;
-  }
+  showStatus('venteStatus','⏳ Envoi en cours...','loading');
 
-  showStatus('venteStatus', '⏳ Envoi vers Google Sheets...', 'loading');
+  // Ouvre send.html en popup minuscule — même domaine donc pas de CORS
+  // send.html fait le POST vers Apps Script et se ferme
+  const sendUrl = 'https://baptisteresplandy-glitch.github.io/carnet-ventes/send.html'
+    + '?url=' + encodeURIComponent(scriptUrl)
+    + '&date=' + encodeURIComponent(v.date)
+    + '&montant=' + encodeURIComponent(v.montant.toFixed(2))
+    + '&mode=' + encodeURIComponent(v.mode);
 
-  const params = new URLSearchParams({
-    date: v.date,
-    montant: v.montant.toFixed(2),
-    mode: v.mode
-  });
-  const url = scriptUrl + '?' + params.toString();
+  window.open(sendUrl, 'popup_envoi', 'width=1,height=1,top=0,left=0');
 
-  // Ouvre un petit onglet qui se ferme automatiquement après 2 secondes
-  // L'onglet envoie la requête à Apps Script et affiche juste une page blanche
-  const redirect = 'https://baptisteresplandy-glitch.github.io/carnet-ventes/send.html'
-    + '?url=' + encodeURIComponent(url);
-
-  const popup = window.open(redirect, '_blank', 'width=1,height=1,top=-100,left=-100');
-
-  // Après 3 secondes on considère que c'est envoyé
-  setTimeout(() => {
-    try { if (popup) popup.close(); } catch(e) {}
+  // send.html nous envoie 'vente_ok' via postMessage quand c'est fait
+  // Sinon fallback après 4 secondes
+  const fallback = setTimeout(() => {
     sauvegarderLocal(v);
-    showStatus('venteStatus', `✅ ${v.montant.toFixed(2)} € (${v.mode}) enregistré dans Google Sheets !`, 'ok');
+    showStatus('venteStatus', `✅ ${v.montant.toFixed(2)} € (${v.mode}) envoyé !`, 'ok');
     reset();
-  }, 3000);
+  }, 4000);
+
+  window._fallback = fallback;
 }
 
-function sauvegarderLocal(v) {
-  ventesSession.push({...v});
-  mettreAJourHistorique();
-}
+window.addEventListener('message', (e) => {
+  if (e.data === 'vente_ok') {
+    clearTimeout(window._fallback);
+    if (venteEnAttente) {
+      sauvegarderLocal(venteEnAttente);
+      showStatus('venteStatus', `✅ ${venteEnAttente.montant.toFixed(2)} € (${venteEnAttente.mode}) enregistré !`, 'ok');
+      reset();
+    }
+  }
+});
 
+function sauvegarderLocal(v) { ventesSession.push({...v}); mettreAJourHistorique(); }
 function reset() {
   document.getElementById('montant').value = '';
   document.getElementById('mode-esp').checked = true;
   venteEnAttente = null;
 }
-
 function mettreAJourHistorique() {
   const cont = document.getElementById('historiqueContent');
-  if (ventesSession.length === 0) {
-    cont.innerHTML = '<p class="empty">Aucune vente pour l\'instant.</p>'; return;
-  }
+  if (!ventesSession.length) { cont.innerHTML = '<p class="empty">Aucune vente pour l\'instant.</p>'; return; }
   let totEsp = 0, totCB = 0;
-  ventesSession.forEach(v => v.mode === 'CB' ? totCB += v.montant : totEsp += v.montant);
-
-  const lignes = [...ventesSession].reverse().map(v => `
-    <tr>
-      <td>${v.date}</td>
-      <td><strong>${v.montant.toFixed(2)} €</strong></td>
-      <td><span class="confirm-badge ${v.mode === 'CB' ? 'badge-cb' : 'badge-esp'}">${v.mode}</span></td>
-    </tr>`).join('');
-
+  ventesSession.forEach(v => v.mode==='CB' ? totCB+=v.montant : totEsp+=v.montant);
   cont.innerHTML = `
     <table>
       <thead><tr><th>Date</th><th>Montant</th><th>Paiement</th></tr></thead>
-      <tbody>${lignes}</tbody>
+      <tbody>${[...ventesSession].reverse().map(v=>`
+        <tr>
+          <td>${v.date}</td>
+          <td><strong>${v.montant.toFixed(2)} €</strong></td>
+          <td><span class="confirm-badge ${v.mode==='CB'?'badge-cb':'badge-esp'}">${v.mode}</span></td>
+        </tr>`).join('')}
+      </tbody>
     </table>
     <div class="totaux">
       <div class="total-box esp"><div class="lbl">💵 Espèces</div><div class="val">${totEsp.toFixed(2)} €</div></div>
@@ -304,24 +231,10 @@ function mettreAJourHistorique() {
       <div class="total-box tot"><div class="lbl">📊 Total</div><div class="val">${(totEsp+totCB).toFixed(2)} €</div></div>
     </div>`;
 }
-
-function showStatus(id, msg, type) {
-  const el = document.getElementById(id);
-  el.textContent = msg;
-  el.className = 'status visible status-' + type;
-}
-function hideStatus(id) { document.getElementById(id).className = 'status'; }
+function showStatus(id, msg, type) { const el=document.getElementById(id); el.textContent=msg; el.className='status visible status-'+type; }
+function hideStatus(id) { document.getElementById(id).className='status'; }
 
 loadConfig();
-
-// Écoute le message de confirmation envoyé par send.html
-window.addEventListener('message', (e) => {
-  if (e.data === 'vente_ok' && venteEnAttente) {
-    sauvegarderLocal(venteEnAttente);
-    showStatus('venteStatus', `✅ Enregistré dans Google Sheets !`, 'ok');
-    reset();
-  }
-});
 </script>
 
 </body>
