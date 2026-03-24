@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Envoi...</title>
+</head>
+<body>
+<script>
+(async function() {
+  const params = new URLSearchParams(window.location.search);
+  const url = params.get('url');
+
+if (!url) { window.close(); return; }
+
+try {
+// Depuis cette page qui est sur le même domaine GitHub Pages,
+// on fait le fetch vers Apps Script
+await fetch(url, { mode: ‘no-cors’, redirect: ‘follow’ });
+} catch(e) {}
+
+// Prévient la page principale que c’est envoyé
+try {
+if (window.opener) window.opener.postMessage(‘vente_ok’, ‘*’);
+} catch(e) {}
+
+// Ferme automatiquement
+window.close();
+})();
+</script>
+
+</body>
+</html>
